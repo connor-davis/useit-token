@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/d0e28b6f-df8e-4bf1-a678-117a0778d065/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/useit-token",
+    "appService.deploySubpath": "."
+}
