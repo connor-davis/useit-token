@@ -1,13 +1,623 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+    --primary: rgb(36, 151, 21);
+    --primary-op: rgba(36, 151, 21, 0.1);
+    --primary-text-color: #f9f9f9;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@media only screen and (prefers-color-scheme: light) {
+    :root {
+        --text-color: #181818;
+        --background-color: #f9f9f9;
+        --background-color-darker: #f0f0f0;
+    }
+}
+
+@media only screen and (prefers-color-scheme: dark) {
+    :root {
+        --text-color: #f9f9f9;
+        --background-color: #181818;
+        --background-color-darker: #131313;
+    }
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: var(--background-color);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--text-color);
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-color);
+}
+
+*,
+*::before,
+*::after {
+    outline: none;
+    color: var(--text-color);
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: "Arial", sans-serif;
+    user-select: none;
+    text-decoration: none;
+}
+
+html,
+body {
+    background: var(--background-color);
+}
+
+select {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    padding: 0 1em 0 0;
+    margin: 0;
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+    outline: none;
+}
+
+.d-app {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    color: var(--text-color);
+    background: var(--background-color);
+    overflow-y: auto;
+}
+
+.d-toolbar {
+    position: relative;
+    height: auto;
+    padding: 20px;
+    margin: 0px 0px 10px 0px;
+    background: var(--background-color-darker);
+    border-radius: 0px 0px 20px 20px;
+    z-index: 100000000;
+    display: flex;
+    justify-content: space-between;
+}
+
+.d-toolbar-title {
+    background: var(--background-color-darker);
+    text-decoration: none;
+}
+
+.d-toolbar-nav {
+    position: relative;
+    width: auto;
+    height: auto;
+    display: flex;
+    background: var(--background-color-darker);
+}
+
+.d-nav-item {
+    position: relative;
+    margin-left: 20px;
+    background: var(--background-color-darker);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: color 0.3s;
+    text-decoration: none;
+}
+
+.d-nav-item:hover {
+    color: var(--primary);
+}
+
+.d-select {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    color: var(--text-color);
+    background: var(--background-color-darker);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 5px;
+    box-shadow: none;
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+}
+
+.d-select::before {
+    content: "";
+    width: 0.8em;
+    height: 0.5em;
+    background-color: var(--primary);
+    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+}
+
+.d-select::before {
+    box-shadow: none;
+}
+
+option {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    color: var(--text-color);
+    background: var(--background-color-darker);
+    line-height: 30px;
+    margin: 20px;
+    appearance: none;
+}
+
+.d-content {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 0px 20px;
+    overflow-y: auto;
+}
+
+.d-content-title {
+    position: relative;
+    height: auto;
+    font-size: 20px;
+    color: var(--primary);
+    background: var(--primary-op);
+    text-align: center;
+    padding: 20px 20px;
+    border-radius: 10px;
+    margin: 50px 0px;
+}
+
+.d-form {
+    position: relative;
+    width: auto;
+    max-width: 500px;
+}
+
+.d-center {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.d-column {
+    position: relative;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding: 5px;
+}
+
+.d-row {
+    position: relative;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    align-content: flex-start;
+    justify-content: center;
+    margin: 5px 0px;
+    text-align: left;
+}
+
+.d-input {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    padding: 0px 10px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    color: var(--primary);
+    background: var(--background-color-darker);
+}
+
+.d-input-group {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0px;
+    margin: 0px;
+}
+
+.d-input-group > .d-input {
+    position: relative;
+    width: auto;
+    height: 40px;
+    padding: 0px 10px;
+    margin-bottom: 10px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    color: var(--primary);
+    background: var(--background-color-darker);
+}
+
+.d-btn {
+    position: relative;
+    max-width: 200px;
+    margin-bottom: 10px;
+    color: var(--text-color);
+    background: var(--background-color-darker);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    margin: 5px 5px;
+    padding: 20px;
+}
+
+.d-btn-primary {
+    position: relative;
+    color: var(--text-color);
+    background: var(--background-color-darker);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    color: var(--primary);
+    background: var(--primary-op);
+    outline: none;
+    user-select: none;
+}
+
+.d-btn-block {
+    position: relative;
+    width: 100% !important;
+    max-width: 100%;
+}
+
+.d-btn-center {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.d-downloading {
+    position: absolute;
+    width: auto;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: var(--primary);
+    font-size: 20px;
+    z-index: 10000000;
+}
+
+.d-searchbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px 20px;
+}
+
+.d-searchbar-input {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    padding: 0px 10px;
+    outline: none;
+    color: var(--textcolor);
+    background: var(--background-color-darker);
+    outline: none;
+}
+
+.d-searchbar-button {
+    position: relative;
+    width: auto;
+    height: 40px;
+    padding: 0px 10px;
+    text-align: center;
+    line-height: 40px;
+    margin-left: 10px;
+    color: var(--primary);
+    background: var(--primary-op);
+    border-radius: 10px;
+    cursor: pointer;
+    outline: none;
+}
+
+.d-results {
+    position: relative;
+    width: auto;
+    height: calc(100vh - 220px);
+    padding: 20px;
+    overflow-y: auto !important;
+}
+
+.d-results > .d-result {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    background: var(--background-color-darker);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.d-results > .d-result > .d-result-header {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    background: var(--background-color-darker);
+}
+
+.d-results > .d-result > .d-result-header > .d-result-thumbnail {
+    position: relative;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.d-results > .d-result > .d-result-header > .d-result-title {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--textcolor);
+    background: var(--background-color-darker);
+}
+
+.d-result-footer {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    background: var(--background-color-darker);
+}
+
+.d-result-downloadbutton {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    margin-top: 10px;
+    color: var(--primary);
+    background: var(--primary-op);
+    border-radius: 10px;
+    outline: none;
+}
+
+.d-footer {
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    align-content: center;
+    justify-content: space-evenly;
+    background: var(--background-color-darker);
+    color: var(--text-color);
+    border-radius: 20px 20px 0px 0px;
+    margin-top: auto;
+}
+
+.d-footer > a {
+    text-decoration: none !important;
+    color: var(--textcolor);
+}
+
+.d-progress {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: auto;
+    z-index: 10000000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    padding: 0px 40px;
+}
+
+.d-progressbar {
+    position: relative;
+    width: 100%;
+    height: 5px;
+    border-radius: 5px;
+    background: var(--background-color-darker);
+    color: var(--primary);
+}
+
+.d-progress > span {
+    color: var(--primary);
+}
+
+.d-progressbar-progress {
+    position: absolute;
+    left: 0;
+    height: 5px;
+    border-radius: 5px;
+    background: var(--primary);
+}
+
+.d-scanner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+}
+
+.d-scanner-video-wrapper {
+    position: relative;
+    background: var(--background-color);
+    border: 2px solid var(--background-color-darker);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.d-scanner-video {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    background: var(--background-color-darker);
+    border-radius: 10px;
+}
+
+.d-scanner-canvas {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    object-fit: fill;
+    fill: var(--background-color-darker);
+    border-radius: 10px;
+}
+
+.d-scanner-data {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.d-data-title {
+    position: relative;
+    width: calc(100% - 40px);
+    height: auto;
+    font-size: 20px;
+    color: var(--primary);
+    background: var(--primary-op);
+    text-align: center;
+    padding: 20px 20px;
+    border-radius: 10px;
+    margin: 20px 0px;
+}
+
+.d-qr-canvas {
+    position: relative;
+    width: 256px;
+    height: 256px;
+    left: 50%;
+    border-radius: 10px;
+    background-color: var(--background-color-darker);
+    transform: translateX(-50%);
+    margin: 20px 0px;
+    padding: 10px;
+}
+
+.d-card-canvas {
+    position: relative;
+    width: 500px;
+    height: 300px;
+    left: 50%;
+    border-radius: 10px;
+    background-color: var(--background-color-darker);
+    transform: translateX(-50%);
+    margin: 20px 0px;
+}
+
+.d-card-img {
+    position: relative;
+    width: 384px;
+    height: 256px;
+    object-fit: fill;
+}
+
+.d-create-user-form {
+    position: relative;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 20px !important;
+}
+
+.d-bg-dark {
+    background-color: var(--background-color-darker);
+}
+
+.d-rounded {
+    border-radius: 10px;
+}
+
+.d-table {
+    position: relative;
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    overflow: auto;
+    margin-bottom: 20px;
+}
+
+.d-table-head {
+    position: relative;
+    width: 100%;
+    height: auto;
+    color: var(--text-color);
+}
+
+.d-table-body {
+    position: relative;
+    width: 100%;
+    height: auto;
+    color: var(--text-color);
+}
+
+.d-table-row {
+    position: relative;
+    padding: 5px 20px;
+}
+
+.d-table-column {
+    position: relative;
+    padding: 20px;
+}
+
+.d-table-head > .d-table-row > .d-table-column {
+    color: var(--primary);
+    background: var(--primary-op);
+}
+
+.d-table-body > .d-table-row > .d-table-column {
+    color: var(--primary);
+    background: var(--primary-op);
 }
